@@ -1,2 +1,3 @@
 #!/bin/bash
-xgd-open StarWars IV
+telnet towel.blinkenlights.nl
+
