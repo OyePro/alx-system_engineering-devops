@@ -1,2 +1,2 @@
-0 s C=<SCHOOL> School
-!:mime MIMETYPE
+0 string C=SCHOOL School
+!:mime School
