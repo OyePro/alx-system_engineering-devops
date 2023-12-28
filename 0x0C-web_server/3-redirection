@@ -20,4 +20,4 @@ new_url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 sudo sed -i "/server {/ a \ \ \ \ location $location_to_redirect {\\n \ \ \ \ \ \ \ \ return 301 $new_url;\\n \ \ \ \ }" $nginx_conf
 
 # Reload Nginx to apply the changes
-sudo service nginx restart
+sudo service nginx start
