@@ -18,7 +18,8 @@ new_url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
 
 # Use sed to update the Nginx configuration file
 # sudo sed -i "/server {/ a \ \ \ \ location $location_to_redirect {\\n \ \ \ \ \ \ \ \ return 301 $new_url;\\n \ \ \ \ }}" $nginx_conf
-sudo sed -i "/server {/ a \ \ \ \ location $location_to_redirect {\\n \ \ \ \ \ \ \ \ return 301 $new_url;\\n \ \ \ \ }}" $nginx_conf
+# sudo sed -i "/server {/ a \ \ \ \ location $location_to_redirect {\\n \ \ \ \ \ \ \ \ return 301 $new_url;\\n \ \ \ \ }}" $nginx_conf
+sudo sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 # Reload Nginx to apply the changes
 sudo service nginx reload
