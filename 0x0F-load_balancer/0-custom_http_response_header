@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# configure web_02 to be identical to web_01
+# This script configures the Nginx server so that its HTTP response contain a custom header
+
+# intall nginx on the server
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo chown -R "$USER":"$USER" /var/www
+echo "Hello World!" > /var/www/html/index.nginx-debian.html
+
+# redirection
+nginx_conf="/etc/nginx/sites-available/default"
+location_to_redirect="/redirect_me"
+new_url="https://www.youtube.com/watch?v=QH2-TGUlwu4"
+
+if ! grep -q "location /redirect_me {" "$nginx_conf"; then
+	        sudo sed -i "/server_name _;/ a \  \  \  \  location $location_to_redirect {\\n \  \  \  \  \  \  \  \ return 301 $new_url;\\n \  \  \  \ }" $nginx_conf
+fi
+
+# error_404
+sudo mkdir -p /var/www/error
+echo "Ceci n'est pas une page" | sudo tee /var/www/error/404.html
+if ! grep -q "error_page 404 /404.html; location = /404.html {root /var/www/error/;internal; }" "$nginx_conf"; then
+	        sudo sed -i "/server_name _;/ a\        error_page 404 /404.html; location = /404.html {root /var/www/error/;internal; }" $nginx_conf
+fi
+
+# custom header
+if ! grep -q "add_header X-Served-By $HOSTNAME;" "$nginx_conf"; then
+	        sudo sed -i "/server_name _;/ a \  \  \  \  add_header X-Served-By $HOSTNAME;" $nginx_conf
+fi
+
+sudo service nginx start
+sudo service nginx reload
