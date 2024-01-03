@@ -2,5 +2,5 @@
 #Fix curl error message by starting Apache server
 
 echo "ServerName localhost" >> /etc/apache2.conf
-sudo service apache2 start
 sudo service apache2 status
+sudo service apache2 start
