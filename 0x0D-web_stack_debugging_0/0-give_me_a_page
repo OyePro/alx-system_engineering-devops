@@ -2,7 +2,4 @@
 # start apache server and return 'hello holberton'
 
 # echo "ServerName localhost" >> /etc/apache2.conf
-echo "Hello Holberton" > /var/www/html/index.html
-sudo service apache2 status
-# service apache2 restart
-echo "apache2 is running"
+sudo service apache2 start
