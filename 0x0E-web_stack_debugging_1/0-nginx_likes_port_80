@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# A bash script to configure Nginx server to listen on port 80
+
+sudo service nginx restart
