@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# A bash script that display informations about subdomains.
+
+
+func () {
+	if [ "$#" -lt 1 ]
+	then
+		exit 0
+	elif [ "$#" -eq 2 ]
+	then
+		domain=$2.$1
+		subdomain=$(dig $domain | grep -A1 "ANSWER SECTION:" | awk -F. 'NR==2 {print $1}')
+		record=$(dig $domain | grep -A1 "ANSWER SECTION:" | awk 'NR==2 {print $4}')
+		ipaddress=$(dig $domain | grep -A1 "ANSWER SECTION:" | awk 'NR==2 {print $5}')
+		echo "The subdomain $subdomain is a $record record and points to $ipaddress"
+	else
+		declare -a arr=("www" "lb-01" "web-01" "web-02")
+		for i in "${arr[@]}"; do
+			domain=$i.$1
+			subdomain=$(dig $domain | grep -A1 "ANSWER SECTION:" | awk -F. 'NR==2 {print $1}')
+			record=$(dig $domain | grep -A1 "ANSWER SECTION:" | awk 'NR==2 {print $4}')
+			ipaddress=$(dig $domain | grep -A1 "ANSWER SECTION:" | awk 'NR==2 {print $5}')
+			echo "The subdomain $subdomain is a $record record and points to $ipaddress"
+		done
+	fi
+}
+func $1 $2
