@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-A bash script that generates a MySQL dump and creates a compressed archive out of it.
+# A bash script that generates a MySQL dump and creates a compressed archive out of it.
 
 sudo mysqldump -u root -p"$1" --all-databases > backup.sql
 current_date=$(date +"%d-%m-%Y")
