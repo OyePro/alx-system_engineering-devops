@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """A python script that exports data in csv format
 """
+import csv
 import requests
 from sys import argv
-import csv
 
 if __name__ == "__main__":
 
